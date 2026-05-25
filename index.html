@@ -2,28 +2,222 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Eid Mubarak</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid Ul Adha Mubarak</title>
+
+<!-- ✅ Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* 🌍 Body */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #000000, #1a1a1a, #d4af37);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+}
+
+/* 🌙 Moon */
+.moon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background: #f5d76e;
+  border-radius: 50%;
+  box-shadow: 20px 0 0 #000;
+  animation: float 4s infinite ease-in-out;
+}
+
+/* ✨ Stars */
+.stars::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  box-shadow:
+    50px 80px white,
+    150px 120px white,
+    300px 200px white,
+    600px 100px white,
+    800px 250px white;
+  animation: blink 2s infinite alternate;
+}
+
+/* 🕌 Mosque */
+.mosque {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  background: black;
+  clip-path: polygon(
+    0% 100%, 0% 70%, 15% 60%, 30% 70%, 40% 55%,
+    50% 70%, 60% 55%, 75% 70%, 90% 60%, 100% 70%, 100% 100%
+  );
+}
+
+/* 🏮 Lanterns */
+.lantern {
+  position: absolute;
+  width: 30px;
+  height: 45px;
+  background: #d4af37;
+  border-radius: 8px;
+  top: -60px;
+  left: 20%;
+  animation: fall 6s linear infinite;
+}
+.lantern2 {
+  left: 70%;
+  animation-duration: 8s;
+}
+
+/* 📦 Card */
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  width: 330px;
+  box-shadow: 0 0 30px rgba(212,175,55,0.5);
+}
+
+/* ✍️ Text */
+h1 {
+  font-size: 24px;
+  color: #f5d76e;
+}
+p {
+  font-size: 16px;
+}
+
+/* 🖼️ GIF */
+img {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  margin: 12px 0;
+  transition: transform 0.3s;
+}
+img:hover {
+  transform: scale(1.05);
+}
+
+/* 🔘 Buttons */
+button {
+  margin: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background: #d4af37;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover {
+  background: #f5d76e;
+}
+
+/* 🎬 Animations */
+@keyframes float {
+  0%{ transform: translateY(0);}
+  50%{ transform: translateY(-15px);}
+  100%{ transform: translateY(0);}
+}
+
+@keyframes blink {
+  from{ opacity:0.3;}
+  to{ opacity:1;}
+}
+
+@keyframes fall {
+  0%{ transform: translateY(-100px); opacity:0;}
+  50%{ opacity:1;}
+  100%{ transform: translateY(700px); opacity:0;}
+}
+
+</style>
 </head>
 
 <body>
 
+<!-- Background Stuff -->
 <div class="moon"></div>
 <div class="stars"></div>
 <div class="mosque"></div>
-
-<div class="card">
-  <h1>Eid Ul Adha Mubarak 🌙</h1>
-
-  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
-
-  <p>Wishing you peace, happiness, and prosperity on this blessed Eid!</p>
-
-  <a href="page2.html" class="btn">Next ➡</a>
-</div>
-
 <div class="lantern"></div>
 <div class="lantern lantern2"></div>
+
+<!-- Card -->
+<div class="card">
+  <h1 id="title"></h1>
+  <img id="gif">
+  <p id="message"></p>
+
+  <div>
+    <button onclick="prev()">⬅ Back</button>
+    <button onclick="next()">Next ➡</button>
+  </div>
+</div>
+
+<script>
+
+/* 📄 Pages Data */
+const pages = [
+  {
+    title: "🌙 Eid Ul Adha Mubarak",
+    message: "Wishing you peace, happiness and endless blessings!",
+    gif: "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif"
+  },
+  {
+    title: "💖 From Ehtasham Hussain",
+    message: "May Allah accept your Qurbani and bless your life!",
+    gif: "https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif"
+  },
+  {
+    title: "🐐 Celebrate Eid",
+    message: "Spread love, joy and happiness with family!",
+    gif: "https://media.giphy.com/media/3oz8xIsloV7zOmt81G/giphy.gif"
+  }
+];
+
+/* 🔁 Navigation */
+let index = 0;
+
+function showPage() {
+  document.getElementById("title").innerText = pages[index].title;
+  document.getElementById("message").innerText = pages[index].message;
+  document.getElementById("gif").src = pages[index].gif;
+}
+
+function next() {
+  if (index < pages.length - 1) {
+    index++;
+    showPage();
+  }
+}
+
+function prev() {
+  if (index > 0) {
+    index--;
+    showPage();
+  }
+}
+
+/* Load first page */
+showPage();
+
+</script>
 
 </body>
 </html>
